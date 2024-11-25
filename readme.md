@@ -1,18 +1,20 @@
 
-# LINE chat
+# <img width="5%" src="readme/line.png"/> LINE chat
 
-web 환경에서 채팅을 즐겨보세요!
-
+web 환경에서 채팅을 즐겨보세요!  
+[Project Introduce on PDF](readme/LINEchat.pdf)  
+(추천) [Project Introduce in Canva](https://www.canva.com/design/DAGXaH6uNXg/UJNxPnT2V3xvELfrl77VBQ/view?utm_content=DAGXaH6uNXg&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 
 ## Authors
 <table>
   <tr>
          <td align="center" width="16%">
-            <a href="https://github.com/kseenyoung"><img width="75%" src="readme/샐리.png"/></a>
+            <a href="https://github.com/kseenyoung"><img width="25%" src="readme/샐리.png"/></a>
             <br />
             <a href="https://github.com/kseenyoung">김신영</a>
         </td>
     </tr>
+</table>
 
 
 ## Tech Stack
@@ -39,6 +41,59 @@ web 환경에서 채팅을 즐겨보세요!
 ## Archetecture
 
 <img src="readme/Architecture.png" width="75%"/>
+
+## Database
+
+
+```oracle
+drop table if exists rooms;
+
+create table rooms(
+    room_id number(10) primary key,
+    name varchar(30) not null,
+    created_at timestamp default systimestamp not null,
+    updated_at timestamp default systimestamp not null
+);
+
+create sequence rooms_seq start with 1 increment by 1 maxvalue 10 nocycle nocache;
+
+drop table if exists chats;
+
+create table members(
+    member_id varchar2(30) primary key,
+    name varchar2(20) not null,
+    password varchar2(100) not null,
+    created_at timestamp default systimestamp not null,
+    updated_at timestamp default systimestamp not null
+);
+
+drop table if exists chats;
+
+create table chats(
+    chat_id number(20) primary key,
+    room_id number(10) constraint chats_roomid_fk references rooms(room_id) ON DELETE CASCADE,
+    member_id varchar2(30) constraint chats_memberid references members(member_id) ON DELETE CASCADE,
+    content varchar(150) not null,
+    created_at timestamp default systimestamp not null,
+    updated_at timestamp default systimestamp not null
+);
+
+create sequence chats_seq start with 1 increment by 1 maxvalue 9999 nocycle nocache;
+
+select * from all_constraints where table_name = 'chats';
+
+-------------
+insert into members(member_id, name, password) values('admin', '관리자', '1234');
+
+insert into rooms(room_id, name) values(rooms_seq.nextval, '드루와');
+insert into rooms(room_id, name) values(rooms_seq.nextval, '나랑 대화할 사람');
+insert into rooms(room_id, name) values(rooms_seq.nextval, '개발자 모여라');
+
+insert into chats(chat_id, room_id, member_id, content) values(chats_seq.nextval, 1, 'ksy', '나야, 들기름');
+
+commit;
+
+```
 
 
 ## 디렉토리 구조
@@ -207,34 +262,6 @@ web
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `roomId` | `int` | **Required**. roomId for enter chat |
-
-
-
-## Run Locally
-
-Clone the project
-
-```bash
-  git clone https://link-to-project
-```
-
-Go to the project directory
-
-```bash
-  cd my-project
-```
-
-Install dependencies
-
-```bash
-  npm install
-```
-
-Start the server
-
-```bash
-  npm run start
-```
 
 
 ## Screenshots
