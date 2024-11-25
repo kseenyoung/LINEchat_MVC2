@@ -21,8 +21,8 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("회원 탈퇴 POST");
-        System.out.println(request.getParameter("password"));
+//        System.out.println("회원 탈퇴 POST");
+//        System.out.println(request.getParameter("password"));
 
         HttpSession session = request.getSession();
         MemberDTO member = (MemberDTO) session.getAttribute("member");
