@@ -90,7 +90,7 @@
     </form>
 </div>
 <div>
-    <main id="home-container">
+    <main id="home-container" class="card">
         <div class="list-group">
             <a class="list-group-item list-group-item-action active" id="menu">
                 Chat List
@@ -100,6 +100,10 @@
                    class="list-group-item list-group-item-action">${room.name}</a>
             </c:forEach>
         </div>
+        <span class="top circle"></span>
+        <span class="right circle"></span>
+        <span class="bottom circle"></span>
+        <span class="left circle"></span>
     </main>
 </div>
 </body>
