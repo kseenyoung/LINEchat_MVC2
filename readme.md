@@ -187,7 +187,7 @@ web
 #### login page
 
 ```http
-  GET /auth/login.do
+  GET /auth/login.do
 ```
 
 #### login
